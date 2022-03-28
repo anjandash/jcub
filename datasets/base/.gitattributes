@@ -1,0 +1,2 @@
+jcub_test_full_scale_csv.csv filter=lfs diff=lfs merge=lfs -text
+jcub_train_full_scale_csv.csv filter=lfs diff=lfs merge=lfs -text

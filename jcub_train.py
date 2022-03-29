@@ -82,35 +82,29 @@ data.drop(columns=["method_id", "method_text"], inplace=True)
 
 #%%
 from sklearn.model_selection import train_test_split
+
+labels = data['cmpx_label']
+train1 = data.drop(['name_label', 'cmpx_label'], axis=1)
+x_train , x_test , y_train , y_test = train_test_split(train1 , labels , test_size=0.20, shuffle=False) #random_state=2) 
+
+#%%
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
 reg = LinearRegression() #ls=least squares
 
-labels = data['cmpx_label']
-train1 = data.drop(['name_label', 'cmpx_label'], axis=1)
-
-x_train , x_test , y_train , y_test = train_test_split(train1 , labels , test_size=0.20, shuffle=False) #random_state=2) 
-
 reg.fit(x_train, y_train)
 #reg.score(x_test, y_test)
 pred_as = reg.predict(x_test)
-
-#%%
-from sklearn.metrics import r2_score
 print(r2_score(y_test, pred_as))
-
 
 # %%
 from sklearn import ensemble
-clf = ensemble.GradientBoostingRegressor(n_estimators = 400, max_depth = 5, min_samples_split = 2, learning_rate = 0.1, loss = 'ls') #ls=least squares #squared_error
+from sklearn.metrics import r2_score
 
+clf = ensemble.GradientBoostingRegressor(n_estimators = 400, max_depth = 5, min_samples_split = 2, learning_rate = 0.1, loss = 'ls') #ls=least squares #squared_error
 clf.fit(x_train, y_train)
 #clf.score(x_test,y_test)
 pred_as = clf.predict(x_test)
-
-
-#%%
-from sklearn.metrics import r2_score
 print(r2_score(y_test, pred_as))
 
 # %%

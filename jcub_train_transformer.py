@@ -93,5 +93,12 @@ raw_pred, _, _ = trainer.predict(test_dataset)
 y_pred = np.argmax(raw_pred, axis=1)
 print(y_pred)
 
+# dict_ = {"orig": y_test, "pred": y_pred}
+# df = pd.Dataframe(dict_)
+# df.to_csv(sys.path[0] + '/eval_pred.csv', index=False)
+
+from sklearn.metrics import r2_score
+print(r2_score(y_test, y_pred))
+
 
 

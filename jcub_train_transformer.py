@@ -97,8 +97,9 @@ print(y_pred)
 # df = pd.Dataframe(dict_)
 # df.to_csv(sys.path[0] + '/eval_pred.csv', index=False)
 
-from sklearn.metrics import r2_score
+from sklearn.metrics import r2_score, accuracy_score
 print(r2_score(y_test, y_pred))
+print(accuracy_score(y_test, y_pred))
 
 
 

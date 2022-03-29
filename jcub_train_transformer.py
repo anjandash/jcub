@@ -38,7 +38,7 @@ def compute_metrics(p):
     return {"r2_score": r2_score_}        
 
 
-train_model_name = "bert-base-uncased"                      # OR local checkpoint_path
+train_model_name = "/home/akarmakar/jcub/jcub_bert_cmpx/checkpoint-3500" #"bert-base-uncased"                      # OR local checkpoint_path
 tokenizer_name   = "bert-base-uncased"                      # OR local checkpoint_path
 
 train_data = pd.read_csv(sys.path[0] + "/datasets/base/jcub_train_full_scale_csv.csv", header=0) 
@@ -63,29 +63,29 @@ val_dataset = Dataset(X_val_tokenized, y_val)
 test_dataset = Dataset(X_test_tokenized)
 
 # train
-args = TrainingArguments(
-    output_dir="jcub_bert_cmpx",
-    evaluation_strategy="steps",
-    eval_steps=500,
-    per_device_train_batch_size=8,
-    per_device_eval_batch_size=8,
-    num_train_epochs=5,
-    seed=42,
-    load_best_model_at_end=True,
-)
+# args = TrainingArguments(
+#     output_dir="jcub_bert_cmpx",
+#     evaluation_strategy="steps",
+#     eval_steps=500,
+#     per_device_train_batch_size=8,
+#     per_device_eval_batch_size=8,
+#     num_train_epochs=5,
+#     seed=42,
+#     load_best_model_at_end=True,
+# )
 
-trainer = Trainer(
-    model=model,
-    args=args,
-    train_dataset=train_dataset,
-    eval_dataset=val_dataset,
-    compute_metrics=compute_metrics,
-    callbacks=[EarlyStoppingCallback(early_stopping_patience=3)],
-)
+# trainer = Trainer(
+#     model=model,
+#     args=args,
+#     train_dataset=train_dataset,
+#     eval_dataset=val_dataset,
+#     compute_metrics=compute_metrics,
+#     callbacks=[EarlyStoppingCallback(early_stopping_patience=3)],
+# )
 
-trainer.train()
+# trainer.train()
 
-
+trainer   = Trainer(model)     
 # predict
 raw_pred, _, _ = trainer.predict(test_dataset)
 
